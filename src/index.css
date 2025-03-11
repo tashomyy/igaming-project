@@ -78,3 +78,7 @@
 .secondary-body {
   @apply text-text-primary text-xs md:text-sm lg:text-base font-caption;
 }
+
+.tw-px {
+  @apply px-4 md:px-6 lg:px-8;
+}

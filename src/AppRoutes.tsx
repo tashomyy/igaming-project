@@ -3,12 +3,13 @@ import Layout from "./components/UI/Layout";
 import Homepage from "./views/Home";
 
 import ProtectedRoute from "./components/UI/ProtectedRoute";
+import Welcome from "./views/Welcome";
 
 const AppRoutes = () => (
   <Router>
     <Routes>
       {/* unprotected routes without layout */}
-      <Route path="/login" element={<div>Login</div>} />
+      <Route path="/login" element={<Welcome />} />
 
       {/* protected routes with layout */}
       <Route path="/" element={<Layout />}>
