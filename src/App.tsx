@@ -13,10 +13,12 @@ function App() {
   return (
     <>
       <ToastContainer />
-      <h1 className="text-xl my-5 mx-2 text-center pt-12">
+      <h1 className="my-5 mx-2 text-center pt-12 main-heading">
         Welcome to the iGaming project app
       </h1>
-      <p className="text-center">Testing fetch data and error handling</p>
+      <p className="text-center primary-body">
+        Testing fetch data and error handling
+      </p>
       <img
         src="/monkey-link.svg"
         alt="Monkey logo"

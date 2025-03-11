@@ -1,1 +1,80 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Poppins&family=Fredoka&display=swap");
+
+:root {
+  --color-primary: #fffbea;
+  --color-secondary: #ffe46f;
+  --color-textPrimary: #4a3f35;
+  --color-textMute: #494541;
+  --color-accent: #ffb900;
+  --color-cardBg: #ffffff;
+  --color-border: #e2c275;
+  --color-hover: #ffd700;
+  --color-danger: #ff6363;
+  --color-success: #4caf50;
+
+  --font-family-headline: "Bungee", cursive;
+  --font-family-body: "Poppins", sans-serif;
+  --font-family-caption: "Fredoka", cursive;
+
+  --font-size-headline: 2.5rem;
+  --font-size-body: 1rem;
+  --font-size-caption: 0.8rem;
+}
+
+.dark {
+  --color-primary: #1e1a17;
+  --color-secondary: #3a2e2a;
+  --color-textPrimary: #fce8c8;
+  --color-textMute: #c7b172;
+  --color-accent: #ffb900;
+  --color-cardBg: #2c2521;
+  --color-border: #8b6f47;
+  --color-hover: #ffd700;
+  --color-danger: #ff8484;
+  --color-success: #5ecc62;
+}
+
+@theme {
+  /* colors */
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-text-primary: var(--color-textPrimary);
+  --color-text-muted: var(--color-textMute);
+  --color-accent: var(--color-accent);
+  --color-card: var(--color-cardBg);
+  --color-border-color: var(--color-border);
+  --color-hover-color: var(--color-hover);
+  --color-danger: var(--color-danger);
+  --color-success: var(--color-success);
+  /*  font families */
+  --font-heading: var(--font-family-headline);
+  --font-body: var(--font-family-body);
+  --font-caption: var(--font-family-caption);
+}
+
+/* for main page headings */
+.main-heading {
+  @apply text-text-primary text-3xl md:text-4xl lg:text-5xl font-heading font-bold;
+}
+
+/* for section headings */
+.secondary-heading {
+  @apply text-text-primary text-xl md:text-2xl lg:text-3xl font-heading;
+}
+
+/* for buttons, card titles etc */
+.element-heading {
+  @apply text-text-primary text-base md:text-lg lg:text-xl font-heading;
+}
+
+/* for main text */
+.primary-body {
+  @apply text-text-primary text-sm md:text-base lg:text-lg font-body;
+}
+
+/* for captions */
+.secondary-body {
+  @apply text-text-primary text-xs md:text-sm lg:text-base font-caption;
+}
