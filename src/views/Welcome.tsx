@@ -2,11 +2,7 @@ import { useState } from "react";
 import LoginForm from "../components/Welcome/LoginForm";
 import RegisterForm from "../components/Welcome/RegisterForm";
 import SwitchMode from "../components/Welcome/SwitchMode";
-
-enum AuthModes {
-  LOGIN = "login",
-  REGISTER = "register",
-}
+import { AuthModes } from "../lib/enums";
 
 const Welcome = () => {
   const [formDisplay, setFormDisplay] = useState<AuthModes>(AuthModes.REGISTER);
@@ -22,7 +18,7 @@ const Welcome = () => {
     );
 
   return (
-    <div className="tw-px bg-primary min-h-screen">
+    <div className="tw-px  min-h-screen flex flex-col items-center justify-center">
       {isLogin ? <LoginForm /> : <RegisterForm />}
       <SwitchMode description={description} changeMode={toggleMode} />
     </div>

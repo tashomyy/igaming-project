@@ -10,7 +10,7 @@ const Homepage = () => {
     "flex items-center justify-center mx-auto text-center my-5";
   return (
     <>
-      <h1 className="my-5 mx-2 text-center pt-12 main-heading">
+      <h1 className="my-5 mx-2 text-center pt-12 primary-heading">
         Welcome to the iGaming project app
       </h1>
       <p className="text-center primary-body">

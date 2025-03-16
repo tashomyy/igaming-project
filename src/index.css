@@ -1,6 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Poppins&family=Fredoka&display=swap");
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
-@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Poppins&family=Fredoka&display=swap");
 
 :root {
   --color-primary: #fffbea;
@@ -54,8 +54,20 @@
   --font-caption: var(--font-family-caption);
 }
 
+body {
+  @apply text-text-primary font-body !bg-cover;
+  background: url("/light-bg.svg") center center no-repeat;
+}
+.dark body {
+  background: url("/dark-bg.svg") center center no-repeat;
+}
+
+.container {
+  @apply w-full max-w-7xl mx-auto px-4 md:px-8;
+}
+
 /* for main page headings */
-.main-heading {
+.primary-heading {
   @apply text-text-primary text-3xl md:text-4xl lg:text-5xl font-heading font-bold;
 }
 
