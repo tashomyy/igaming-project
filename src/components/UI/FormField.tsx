@@ -28,7 +28,7 @@ const FormField = ({
   register,
   error,
 }: FormFieldProps) => {
-  const inputClass = `w-full bg-transparent placeholder:text-[#333] dark:placeholder:text-white text-primary-text text-xs sm:text-sm border rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-blue-500 hover:border-blue-300 shadow-sm focus:shadow pr-8 ${
+  const inputClass = `sm:min-w-[400px] w-full bg-transparent placeholder:text-[#333] dark:placeholder:text-white text-primary-text text-xs sm:text-sm border rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-blue-500 hover:border-blue-300 shadow-sm focus:shadow pr-8 ${
     error ? "border-red-500" : "border-border-color"
   }`;
 

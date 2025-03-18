@@ -42,10 +42,11 @@ export const stepOneSchema = z
         message:
           "Password must be at least 8 characters and include uppercase, lowercase, number, and special character (!@#$%^&*)",
       }),
-    password_confirm: z.string(),
+    password_confirm: z.string().min(1, { message: "Passwords do not match" }),
   })
   .refine((data) => data.password === data.password_confirm, {
     message: "Passwords do not match",
+    path: ["password_confirm"],
   });
 
 export const stepTwoSchema = z.object({

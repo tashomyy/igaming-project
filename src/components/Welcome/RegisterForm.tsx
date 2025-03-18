@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import formData from "../../lib/formSampleData.json";
+import backendFormData from "../../lib/formSampleData.json";
 import FormField from "../UI/FormField";
 import { InputType } from "../../lib/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,8 +11,7 @@ import {
   stepTwoSchema,
 } from "./validation";
 import { FORM_STEPS } from "../../lib/constants";
-
-type FormData = StepOneFormData & StepTwoFormData;
+import { FormData } from "../../lib/types";
 
 const RegistrationForm = () => {
   const [step, setStep] = useState(1);
@@ -62,7 +61,7 @@ const StepOneForm = ({ onNext, storedData }: StepOneFormProps) => {
     defaultValues: storedData,
   });
 
-  const fieldsForStepOne = formData.fields.filter(
+  const fieldsForStepOne = backendFormData.fields.filter(
     (field) => field.step === FORM_STEPS.STEP_ONE
   );
 
@@ -83,6 +82,7 @@ const StepOneForm = ({ onNext, storedData }: StepOneFormProps) => {
           {...(field.valueList && { options: field.valueList })}
         />
       ))}
+
       <button
         type="submit"
         className="px-4 py-2 bg-blue-500 text-white rounded-md"
@@ -112,7 +112,9 @@ const StepTwoForm = ({ onBack, onSubmit, storedData }: StepTwoFormProps) => {
     defaultValues: storedData,
   });
 
-  const fieldsForStepTwo = formData.fields.filter((field) => field.step === 2);
+  const fieldsForStepTwo = backendFormData.fields.filter(
+    (field) => field.step === 2
+  );
 
   const handleBack = () => {
     const newData = getValues();
