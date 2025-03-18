@@ -6,7 +6,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const user = null;
+  const user = localStorage.getItem("user");
   const location = useLocation();
 
   if (!user) {

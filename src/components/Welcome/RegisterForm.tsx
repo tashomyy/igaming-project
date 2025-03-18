@@ -12,10 +12,12 @@ import {
 } from "./validation";
 import { FORM_STEPS } from "../../lib/constants";
 import { FormData } from "../../lib/types";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<Partial<FormData>>({});
+  const navigate = useNavigate();
 
   const handleStepSwitch = (data: Partial<FormData>, step: number) => {
     setFormData((prev) => ({ ...prev, ...data }));
@@ -24,8 +26,9 @@ const RegistrationForm = () => {
 
   const handleSubmit = (data: Partial<FormData>) => {
     const finalData = { ...formData, ...data };
-    console.log("Final Form Data:", finalData);
-    // submit
+
+    localStorage.setItem("user", JSON.stringify(finalData));
+    navigate("/");
   };
 
   return (
