@@ -74,5 +74,5 @@ export const step2Schema = z.object({
     .max(20, { message: "Phone number is too long" }),
 });
 
-export type Step1FormData = z.infer<typeof step1Schema>;
-export type Step2FormData = z.infer<typeof step2Schema>;
+export type StepOneFormData = z.infer<typeof step1Schema>;
+export type StepTwoFormData = z.infer<typeof step2Schema>;

@@ -5,23 +5,25 @@ import FormField from "../UI/FormField";
 import { InputType } from "../../lib/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Step1FormData,
+  StepOneFormData,
   step1Schema,
-  Step2FormData,
+  StepTwoFormData,
   step2Schema,
 } from "./validation";
 import { FORM_STEPS } from "../../lib/constants";
 
+type FormData = StepOneFormData & StepTwoFormData;
+
 const RegistrationForm = () => {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<Partial<FormData>>({});
 
-  const handleStepSwitch = (data: any, step: number) => {
+  const handleStepSwitch = (data: Partial<FormData>, step: number) => {
     setFormData((prev) => ({ ...prev, ...data }));
     setStep(step);
   };
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: Partial<FormData>) => {
     const finalData = { ...formData, ...data };
     console.log("Final Form Data:", finalData);
     // submit
@@ -44,18 +46,17 @@ const RegistrationForm = () => {
 
 export default RegistrationForm;
 
-const StepOneForm = ({
-  onNext,
-  storedData,
-}: {
-  onNext: (data: any, step: number) => void;
-  storedData: any;
-}) => {
+interface StepOneFormProps {
+  onNext: (data: Partial<FormData>, step: number) => void;
+  storedData: Partial<FormData>;
+}
+
+const StepOneForm = ({ onNext, storedData }: StepOneFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Step1FormData>({
+  } = useForm<StepOneFormData>({
     mode: "onBlur",
     resolver: zodResolver(step1Schema),
     defaultValues: storedData,
@@ -77,7 +78,7 @@ const StepOneForm = ({
           type={field.fieldType as InputType}
           label={field.name}
           name={field.code}
-          error={errors[field.code as keyof Step1FormData]?.message}
+          error={errors[field.code as keyof StepOneFormData]?.message}
           register={register}
           {...(field.valueList && { options: field.valueList })}
         />
@@ -92,22 +93,20 @@ const StepOneForm = ({
   );
 };
 
-const StepTwoForm = ({
-  onBack,
-  onSubmit,
-  storedData,
-}: {
-  onBack: (data: any, step: number) => void;
-  onSubmit: (data: any) => void;
-  storedData: any;
-}) => {
+interface StepTwoFormProps {
+  onBack: (data: Partial<FormData>, step: number) => void;
+  onSubmit: (data: Partial<FormData>) => void;
+  storedData: Partial<FormData>;
+}
+
+const StepTwoForm = ({ onBack, onSubmit, storedData }: StepTwoFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     getValues,
     reset,
-  } = useForm<Step2FormData>({
+  } = useForm<StepTwoFormData>({
     mode: "onBlur",
     resolver: zodResolver(step2Schema),
     defaultValues: storedData,
@@ -133,7 +132,7 @@ const StepTwoForm = ({
           type={field.fieldType as InputType}
           label={field.name}
           name={field.code}
-          error={errors[field.code as keyof Step2FormData]?.message}
+          error={errors[field.code as keyof StepTwoFormData]?.message}
           register={register}
           {...(field.valueList && { options: field.valueList })}
         />
