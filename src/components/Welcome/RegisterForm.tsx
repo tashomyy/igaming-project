@@ -6,9 +6,9 @@ import { InputType } from "../../lib/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   StepOneFormData,
-  step1Schema,
+  stepOneSchema,
   StepTwoFormData,
-  step2Schema,
+  stepTwoSchema,
 } from "./validation";
 import { FORM_STEPS } from "../../lib/constants";
 
@@ -58,7 +58,7 @@ const StepOneForm = ({ onNext, storedData }: StepOneFormProps) => {
     formState: { errors },
   } = useForm<StepOneFormData>({
     mode: "onBlur",
-    resolver: zodResolver(step1Schema),
+    resolver: zodResolver(stepOneSchema),
     defaultValues: storedData,
   });
 
@@ -108,7 +108,7 @@ const StepTwoForm = ({ onBack, onSubmit, storedData }: StepTwoFormProps) => {
     reset,
   } = useForm<StepTwoFormData>({
     mode: "onBlur",
-    resolver: zodResolver(step2Schema),
+    resolver: zodResolver(stepTwoSchema),
     defaultValues: storedData,
   });
 

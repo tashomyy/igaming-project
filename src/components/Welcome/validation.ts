@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const step1Schema = z
+export const stepOneSchema = z
   .object({
     fname: z
       .string()
@@ -48,7 +48,7 @@ export const step1Schema = z
     message: "Passwords do not match",
   });
 
-export const step2Schema = z.object({
+export const stepTwoSchema = z.object({
   countrycode: z
     .string()
     .regex(/^[a-z]{2}$/, { message: "Country code is required" }),
@@ -74,5 +74,5 @@ export const step2Schema = z.object({
     .max(20, { message: "Phone number is too long" }),
 });
 
-export type StepOneFormData = z.infer<typeof step1Schema>;
-export type StepTwoFormData = z.infer<typeof step2Schema>;
+export type StepOneFormData = z.infer<typeof stepOneSchema>;
+export type StepTwoFormData = z.infer<typeof stepTwoSchema>;
