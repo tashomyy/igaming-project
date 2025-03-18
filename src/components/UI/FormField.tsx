@@ -3,7 +3,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import ResetButton from "./ResetButton";
 import { InputType } from "../../lib/enums";
 import { inputToValue } from "../../lib/helpers";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 
 interface FormFieldProps {
   code: string;
@@ -15,7 +15,7 @@ interface FormFieldProps {
   className?: string;
   register: UseFormRegister<any>;
   onReset?: () => void;
-  errors: any;
+  error: any;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -27,9 +27,11 @@ const FormField: React.FC<FormFieldProps> = ({
   onReset,
   className,
   register,
+  error,
 }) => {
-  const inputClass =
-    "w-full bg-transparent placeholder:text-[#333] dark:placeholder:text-white text-primary-text text-xs sm:text-sm border border-border-color rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-blue-500 hover:border-blue-300 shadow-sm focus:shadow pr-8";
+  const inputClass = `w-full bg-transparent placeholder:text-[#333] dark:placeholder:text-white text-primary-text text-xs sm:text-sm border rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-blue-500 hover:border-blue-300 shadow-sm focus:shadow pr-8 ${
+    error ? "border-red-500" : "border-border-color"
+  }`;
 
   const renderInput = () => {
     switch (type) {
@@ -79,9 +81,12 @@ const FormField: React.FC<FormFieldProps> = ({
   };
 
   return (
-    <div className={`flex flex-col gap-2 w-full max-w-md ${className}`}>
+    <div
+      className={`flex flex-col gap-2 w-full max-w-md relative ${className}`}
+    >
       <label className="text-primary-text font-medium">{label}</label>
       {renderInput()}
+      {error && <p className="text-sm text-red-500 ">{error.message}</p>}
     </div>
   );
 };
