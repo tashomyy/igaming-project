@@ -24,9 +24,7 @@ const Homepage = () => {
   }, [loadMore]);
 
   return (
-    <>
-      <h1 className="text-center pt-12">Welcome to the iGaming project</h1>
-
+    <div className="container">
       <input
         type="text"
         placeholder="Search games..."
@@ -62,7 +60,7 @@ const Homepage = () => {
           {!hasMore && <p>No more games.</p>}
         </Suspense>
       </ErrorBoundary>
-    </>
+    </div>
   );
 };
 
