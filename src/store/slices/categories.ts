@@ -1,26 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Category } from "../../lib/types";
 
 interface CategoriesState {
-  categories: Record<string, Category[]>;
+  activeCategory: string | null;
 }
 
 const initialState: CategoriesState = {
-  categories: {},
+  activeCategory: null,
 };
 
 const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {
-    updateCategories: (
-      state,
-      action: PayloadAction<Record<string, Category[]>>
-    ) => {
-      state.categories = action.payload;
+    setCategory: (state, action: PayloadAction<string | null>) => {
+      state.activeCategory = action.payload;
+    },
+    resetCategory: (state) => {
+      state.activeCategory = null;
     },
   },
 });
 
-export const { updateCategories } = categoriesSlice.actions;
+export const { setCategory, resetCategory } = categoriesSlice.actions;
 export default categoriesSlice.reducer;

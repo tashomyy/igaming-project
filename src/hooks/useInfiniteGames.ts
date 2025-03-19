@@ -1,18 +1,20 @@
 import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setGames, filterGames, loadMoreGames } from "../store/slices/games";
-import { fetchGames } from "../services/games";
 import { RootState } from "../store/store";
+import { fetchGames } from "../services/games";
 
 interface UseInfiniteGamesProps {
-  category?: string | null;
   searchQuery?: string;
 }
 
-const useInfiniteGames = ({ category, searchQuery }: UseInfiniteGamesProps) => {
+const useInfiniteGames = ({ searchQuery }: UseInfiniteGamesProps) => {
   const dispatch = useDispatch();
   const { loadedGames, hasMore } = useSelector(
     (state: RootState) => state.games
+  );
+  const activeCategory = useSelector(
+    (state: RootState) => state.categories.activeCategory
   );
 
   const [loading, setLoading] = useState(false);
@@ -29,8 +31,12 @@ const useInfiniteGames = ({ category, searchQuery }: UseInfiniteGamesProps) => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(filterGames({ category, searchQuery }));
-  }, [category, searchQuery, dispatch]);
+    dispatch(filterGames({ category: activeCategory, searchQuery }));
+  }, [activeCategory, searchQuery, dispatch]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeCategory]);
 
   const loadMore = useCallback(() => {
     if (hasMore) {

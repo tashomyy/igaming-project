@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Category, FormData } from "../../lib/types";
 import { fetchCategories } from "../../services/categories";
+import { setCategory, resetCategory } from "../../store/slices/categories";
+import { RootState } from "../../store/store";
 import DropdownMenu from "./DropdownMenu";
 
 interface HeaderProps {
   logout: () => void;
   userData: FormData | null;
-  onCategorySelect: (category: string | null) => void;
 }
 
-const Header = ({ logout, userData, onCategorySelect }: HeaderProps) => {
-  if (userData === null) return null;
+const Header = ({ logout, userData }: HeaderProps) => {
+  if (!userData) return null;
+
+  const dispatch = useDispatch();
+  const activeCategory = useSelector(
+    (state: RootState) => state.categories.activeCategory
+  );
 
   const [categories, setCategories] = useState<Record<string, Category[]>>({});
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCategoriesData = async () => {
       const res = await fetchCategories();
-
       const groupedCategories: Record<string, Category[]> = res.reduce(
         (acc: Record<string, Category[]>, category: Category) => {
           const type = category.type || "other";
@@ -28,7 +33,6 @@ const Header = ({ logout, userData, onCategorySelect }: HeaderProps) => {
         },
         {}
       );
-
       setCategories(groupedCategories);
     };
 
@@ -36,8 +40,11 @@ const Header = ({ logout, userData, onCategorySelect }: HeaderProps) => {
   }, []);
 
   const handleCategoryClick = (slug: string | null) => {
-    setSelectedCategory(slug);
-    onCategorySelect(slug);
+    if (slug === null) {
+      dispatch(resetCategory());
+    } else {
+      dispatch(setCategory(slug));
+    }
   };
 
   return (
@@ -45,8 +52,8 @@ const Header = ({ logout, userData, onCategorySelect }: HeaderProps) => {
       <nav className="flex items-center justify-center gap-x-4">
         <button
           onClick={() => handleCategoryClick(null)}
-          className={` px-4 py-2 rounded-lg transition ${
-            selectedCategory === null
+          className={`px-4 py-2 rounded-lg transition ${
+            activeCategory === null
               ? "bg-blue-600"
               : "bg-gray-800 hover:bg-gray-700"
           }`}
@@ -67,7 +74,7 @@ const Header = ({ logout, userData, onCategorySelect }: HeaderProps) => {
                   key={cat.id || cat.slug}
                   onClick={() => handleCategoryClick(cat.slug)}
                   className={`w-full block text-left px-4 py-2 hover:bg-gray-700 transition ${
-                    selectedCategory === cat.slug ? "bg-blue-600" : ""
+                    activeCategory === cat.slug ? "bg-blue-600" : ""
                   }`}
                 >
                   {title}
@@ -78,7 +85,7 @@ const Header = ({ logout, userData, onCategorySelect }: HeaderProps) => {
         ))}
       </nav>
 
-      <div className="flex justify-end items-center mt-4">
+      <div className="flex justify-end items-center">
         <span className="mr-4">{userData.username}</span>
         <button
           onClick={logout}

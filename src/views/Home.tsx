@@ -3,11 +3,9 @@ import { Suspense, useState, useEffect } from "react";
 import useInfiniteGames from "../hooks/useInfiniteGames";
 
 const Homepage = () => {
-  const [category, setCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   const { games, loadMore, hasMore, loading } = useInfiniteGames({
-    category,
     searchQuery,
   });
 
@@ -27,12 +25,7 @@ const Homepage = () => {
 
   return (
     <>
-      <h1 className="my-5 mx-2 text-center pt-12 primary-heading">
-        Welcome to the iGaming project app
-      </h1>
-      <p className="text-center primary-body">
-        Testing fetch data and error handling
-      </p>
+      <h1 className="text-center pt-12">Welcome to the iGaming project</h1>
 
       <input
         type="text"
@@ -42,10 +35,8 @@ const Homepage = () => {
         className="border p-2 my-4 w-full"
       />
 
-      <ErrorBoundary
-        fallback={<div>Something went wrong with loading games</div>}
-      >
-        <Suspense fallback={<div>Loading games...</div>}>
+      <ErrorBoundary fallback={<div>Something went wrong</div>}>
+        <Suspense fallback={<div>Loading...</div>}>
           <div className="grid grid-cols-3 gap-4">
             {games.map((game) => (
               <div
@@ -67,8 +58,8 @@ const Homepage = () => {
               </div>
             ))}
           </div>
-          {loading && <p>Loading more games...</p>}
-          {!hasMore && <p>No more games to load</p>}
+          {loading && <p>Loading more...</p>}
+          {!hasMore && <p>No more games.</p>}
         </Suspense>
       </ErrorBoundary>
     </>

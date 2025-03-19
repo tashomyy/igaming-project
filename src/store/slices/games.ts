@@ -35,18 +35,16 @@ const gamesSlice = createSlice({
 
       let filteredGames = state.allGames;
 
-      // Apply category filters
       if (category) {
         filteredGames = filteredGames.filter(
           (game) =>
             game.category === category ||
             game.subCategory === category ||
-            game.extraCategories.includes(category) ||
+            (game.extraCategories && game.extraCategories.includes(category)) ||
             game.type === category
         );
       }
 
-      // Apply search query
       if (searchQuery) {
         filteredGames = filteredGames.filter(
           (game) =>
