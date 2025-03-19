@@ -48,8 +48,8 @@ const Header = ({ logout, userData }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-gray-900 text-white p-4 shadow-lg flex items-center justify-between sticky top-0 z-50">
-      <nav className="flex items-center justify-center gap-x-4">
+    <header className="bg-gray-900 text-white p-4 shadow-lg flex items-center justify-between sticky top-0 z-50 flex-wrap gap-x-8 gap-y-2">
+      <nav className="flex items-center justify-center gap-x-4 gap-y-2 flex-wrap">
         <button
           onClick={() => handleCategoryClick(null)}
           className={`px-4 py-2 rounded-lg transition ${
@@ -85,7 +85,7 @@ const Header = ({ logout, userData }: HeaderProps) => {
         ))}
       </nav>
 
-      <div className="flex justify-end items-center">
+      <div className="flex mx-auto lg:justify-end lg:mx-0 items-center">
         <span className="mr-4">{userData.username}</span>
         <button
           onClick={logout}
