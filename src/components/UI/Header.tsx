@@ -48,51 +48,53 @@ const Header = ({ logout, userData }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-gray-900 text-white p-4 shadow-lg flex items-center justify-between sticky top-0 z-50 flex-wrap gap-x-8 gap-y-2">
-      <nav className="flex items-center justify-center gap-x-4 gap-y-2 flex-wrap">
-        <button
-          onClick={() => handleCategoryClick(null)}
-          className={`px-4 py-2 rounded-lg transition ${
-            activeCategory === null
-              ? "bg-blue-600"
-              : "bg-gray-800 hover:bg-gray-700"
-          }`}
-        >
-          All Games
-        </button>
+    <header className="bg-gray-900 text-white py-4 shadow-lg  sticky top-0 z-50 ">
+      <div className="container flex items-center justify-between flex-wrap gap-x-8 gap-y-2">
+        <nav className="flex items-center justify-center gap-x-4 gap-y-2 flex-wrap">
+          <button
+            onClick={() => handleCategoryClick(null)}
+            className={`px-4 py-2 rounded-lg transition ${
+              activeCategory === null
+                ? "bg-blue-600"
+                : "bg-gray-800 hover:bg-gray-700"
+            }`}
+          >
+            All Games
+          </button>
 
-        {Object.entries(categories).map(([type, categoryList]) => (
-          <DropdownMenu key={type} label={type.replace(/([A-Z])/g, " $1")}>
-            {categoryList.map((cat) => {
-              const title =
-                cat.multilingual?.find((lang) => lang.language === "en")
-                  ?.title ||
-                cat.title ||
-                cat.slug;
-              return (
-                <button
-                  key={cat.id || cat.slug}
-                  onClick={() => handleCategoryClick(cat.slug)}
-                  className={`w-full block text-left px-4 py-2 hover:bg-gray-700 transition ${
-                    activeCategory === cat.slug ? "bg-blue-600" : ""
-                  }`}
-                >
-                  {title}
-                </button>
-              );
-            })}
-          </DropdownMenu>
-        ))}
-      </nav>
+          {Object.entries(categories).map(([type, categoryList]) => (
+            <DropdownMenu key={type} label={type.replace(/([A-Z])/g, " $1")}>
+              {categoryList.map((cat) => {
+                const title =
+                  cat.multilingual?.find((lang) => lang.language === "en")
+                    ?.title ||
+                  cat.title ||
+                  cat.slug;
+                return (
+                  <button
+                    key={cat.id || cat.slug}
+                    onClick={() => handleCategoryClick(cat.slug)}
+                    className={`w-full block text-left px-4 py-2 hover:bg-gray-700 transition ${
+                      activeCategory === cat.slug ? "bg-blue-600" : ""
+                    }`}
+                  >
+                    {title}
+                  </button>
+                );
+              })}
+            </DropdownMenu>
+          ))}
+        </nav>
 
-      <div className="flex mx-auto lg:justify-end lg:mx-0 items-center">
-        <span className="mr-4">{userData.username}</span>
-        <button
-          onClick={logout}
-          className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-500 transition"
-        >
-          Logout
-        </button>
+        <div className="flex mx-auto lg:justify-end lg:mx-0 items-center">
+          <span className="mr-4">{userData.username}</span>
+          <button
+            onClick={logout}
+            className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-500 transition"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </header>
   );
