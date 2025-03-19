@@ -1,45 +1,65 @@
-import { ErrorBoundary } from "react-error-boundary";
-import { Suspense, useEffect, useState } from "react";
-import { Game } from "../lib/types";
-import { fetchGames } from "../services/games";
+import { useEffect, useRef, useState } from "react";
+
+import GameGrid from "../components/Homepage/GameGrid";
+import useInfiniteGames from "../hooks/useInfiniteGames";
 
 const Homepage = () => {
-  const [games, setGames] = useState<Game[]>([]);
-  useEffect(() => {
-    const fetchGamesData = async () => {
-      const res = await fetchGames();
-      console.log(res);
-    };
-    fetchGamesData();
-  }, []);
+  const [filters, setFilters] = useState({
+    category: "",
+    subCategory: "",
+    extraCategory: "",
+    type: "",
+    searchQuery: "",
+    provider: "",
+  });
 
-  const centerClassNameTemp =
-    "flex items-center justify-center mx-auto text-center my-5";
-  return (
-    <>
-      <h1 className="my-5 mx-2 text-center pt-12 primary-heading">
-        Welcome to the iGaming project app
-      </h1>
-      <p className="text-center primary-body">
-        Testing fetch data and error handling
-      </p>
-      <img
-        src="/monkey-link.svg"
-        alt="Monkey logo"
-        className="w-4/12 mx-auto mt-5"
-      />
-      <ErrorBoundary
-        fallback={
-          <div className={centerClassNameTemp}>
-            Something went wrong with loading games
-          </div>
+  const { games, loading, loadMore } = useInfiniteGames(filters);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading) {
+          loadMore();
         }
-      >
-        <Suspense
-          fallback={<div className={centerClassNameTemp}>Loading games...</div>}
-        ></Suspense>
-      </ErrorBoundary>
-    </>
+      },
+      { threshold: 1 }
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [loading]);
+
+  return (
+    <div className="container mx-auto">
+      <h1 className="text-center my-5">Welcome to the iGaming App</h1>
+
+      <input
+        type="text"
+        placeholder="Search by name..."
+        className="border p-2 rounded w-full mb-4"
+        onChange={(e) =>
+          setFilters((prev) => ({ ...prev, searchQuery: e.target.value }))
+        }
+      />
+      <input
+        type="text"
+        placeholder="Search by provider..."
+        className="border p-2 rounded w-full mb-4"
+        onChange={(e) =>
+          setFilters((prev) => ({ ...prev, provider: e.target.value }))
+        }
+      />
+
+      <GameGrid games={games} />
+
+      <div ref={observerRef} className="h-10"></div>
+
+      {loading && <p className="text-center mt-4">Loading more games...</p>}
+    </div>
   );
 };
 
