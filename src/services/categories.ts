@@ -23,7 +23,10 @@ export const extractCategoriesFromGames = (
   games: Game[]
 ): Record<string, Category[]> => {
   return games.reduce((acc: Record<string, Category[]>, game: Game) => {
-    const addCategory = (type: string, slug: string) => {
+    const addCategory = (
+      type: "type" | "category" | "subCategory" | "tags" | "extraCategories",
+      slug: string
+    ) => {
       if (!acc[type]) acc[type] = [];
       if (!acc[type].some((cat) => cat.slug === slug)) {
         acc[type].push({
@@ -42,5 +45,5 @@ export const extractCategoriesFromGames = (
     if (game.type) addCategory("type", game.type);
 
     return acc;
-  }, {});
+  }, {} as Record<"type" | "category" | "subCategory" | "tags" | "extraCategories", Category[]>);
 };

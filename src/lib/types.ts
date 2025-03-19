@@ -47,10 +47,10 @@ export type Game = {
 export type Category = {
   id: number;
   slug: string;
-  portal: string;
-  multilingual: Multilingual[];
-  publishing: Publishing;
-  type: "category" | "subCategory" | "tags" | "type" | "extraCategories";
+  portal?: string;
+  multilingual?: Multilingual[];
+  publishing?: Publishing;
+  type: string;
   title?: string;
 };
 
