@@ -13,7 +13,7 @@ const GameGrid: React.FC<GameGridProps> = ({ games }) => {
           <div
             key={game.id}
             className="relative group overflow-hidden rounded-xl shadow-2xl border-4 border-transparent 
-                      hover:border-[#FF007F] transition-all duration-300 transform hover:scale-105"
+                      hover:border-primary transition-all duration-300 transform hover:scale-105"
           >
             <img
               src={game.desktopThumbnail.url}
@@ -26,15 +26,15 @@ const GameGrid: React.FC<GameGridProps> = ({ games }) => {
               className="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center 
                             opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             >
-              <h3 className="text-[#FFD700] font-bold text-xl tracking-wide drop-shadow-lg">
+              <h3 className="text-accent font-bold text-xl tracking-wide drop-shadow-lg px-4 text-center">
                 {game.name}
               </h3>
-              <p className="text-[#FF5733] text-md mt-1 font-semibold">
+              <p className="text-warning text-md mt-1 font-semibold">
                 {game.provider}
               </p>
 
               <div
-                className="absolute inset-0 border-4 border-[#39FF14] 
+                className="absolute inset-0 border-4 border-success 
                               opacity-0 group-hover:opacity-100 animate-pulse"
               ></div>
             </div>

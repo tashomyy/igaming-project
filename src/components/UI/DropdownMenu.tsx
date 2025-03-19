@@ -27,9 +27,9 @@ const DropdownMenu = ({ label, children }: DropdownMenuProps) => {
     <div className="relative w-max" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full px-4 py-2 bg-[#FF007F] hover:bg-[#FF5733] rounded-lg 
+        className="w-full px-4 py-2 bg-primary hover:bg-warning rounded-lg 
                    flex justify-between items-center text-white font-bold
-                   border-2 border-transparent hover:border-[#FFD700] 
+                   border-2 border-transparent hover:border-accent 
                    transition-all duration-300 transform hover:scale-105"
       >
         {label}
@@ -42,8 +42,8 @@ const DropdownMenu = ({ label, children }: DropdownMenuProps) => {
 
       {isOpen && (
         <div
-          className="absolute left-0 w-max bg-[#6A0DAD] shadow-2xl 
-                        rounded-lg mt-2 z-20 p-3 border-2 border-[#FFD700]"
+          className="absolute left-0 w-max bg-secondary shadow-2xl 
+                        rounded-lg mt-2 z-20 p-3 border-2 border-accent"
         >
           {children}
         </div>

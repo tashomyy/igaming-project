@@ -1,63 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Bungee&family=Poppins&family=Fredoka&display=swap");
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
-
-:root {
-  --color-primary: #fffbea;
-  --color-secondary: #ffe46f;
-  --color-textPrimary: #4a3f35;
-  --color-textMute: #494541;
-  --color-accent: #ffb900;
-  --color-cardBg: #ffffff;
-  --color-border: #e2c275;
-  --color-hover: #ffd700;
-  --color-danger: #ff6363;
-  --color-success: #4caf50;
-
-  --font-family-headline: "Bungee", cursive;
-  --font-family-body: "Poppins", sans-serif;
-  --font-family-caption: "Fredoka", cursive;
-
-  --font-size-headline: 2.5rem;
-  --font-size-body: 1rem;
-  --font-size-caption: 0.8rem;
-}
-
-.dark {
-  --color-primary: #1e1a17;
-  --color-secondary: #3a2e2a;
-  --color-textPrimary: #fce8c8;
-  --color-textMute: #c7b172;
-  --color-accent: #ffb900;
-  --color-cardBg: #2c2521;
-  --color-border: #8b6f47;
-  --color-hover: #ffd700;
-  --color-danger: #ff8484;
-  --color-success: #5ecc62;
-}
 
 @theme {
-  /* 🎨 Colors */
-  --color-primary: #ff007f; /* Neon Pink */
-  --color-secondary: #6a0dad; /* Deep Purple */
-  --color-text-primary: #ffd700; /* Crazy Yellow */
-  --color-text-muted: #ff5733; /* Funky Orange */
-  --color-accent: #39ff14; /* Neon Green */
-  --color-card: #00ffff; /* Neon Blue */
-  --color-border-color: #ffd700; /* Crazy Yellow */
-  --color-hover-color: #ff5733; /* Funky Orange */
-  --color-danger: #ff0000; /* Bright Red */
-  --color-success: #00ff00; /* Bright Green */
+  --color-primary: #ff007f; /* neon pink */
+  --color-secondary: #6a0dad; /* deep purple */
+  --color-accent: #ffd700; /* yellow */
+  --color-highlight: #00ffff; /* neon blue */
+  --color-warning: #ff5733; /* orange */
+  --color-success: #39ff14; /* neon green */
+  --color-danger: #ff0000; /*  red */
 
-  /* 🖋️ Font Families */
-  --font-heading: "Comic Sans MS", cursive, sans-serif; /* Fun Headline Font */
-  --font-body: "Poppins", sans-serif; /* Clean & Modern */
-  --font-caption: "Press Start 2P", cursive; /* Retro Gaming Vibes */
+  --color-text-primary: #ffffff; /* white */
+  --color-text-muted: #b3b3b3; /* light gray */
+
+  --color-bg-main: #1a1a2e; /* dark blue */
+  --color-bg-secondary: #212f45; /* lighter dark blue*/
+  --color-bg-card: #2a2d43; /* dark card background */
+
+  --font-heading: "Comic Sans MS", cursive, sans-serif;
+  --font-body: "Poppins", sans-serif;
+  --font-caption: "Press Start 2P", cursive;
 }
 
 body {
   @apply text-text-primary font-body !bg-cover;
-  background: url("/light-bg.svg") center center no-repeat;
 }
 
 .container {

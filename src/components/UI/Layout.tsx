@@ -26,7 +26,7 @@ const Layout = () => {
       <main className="h-full">
         <Outlet />
       </main>
-      <footer className="text-center py-6 text-lg text-[#FFD700] bg-[#FF007F] mt-10">
+      <footer className="text-center py-6 text-lg text-accent bg-primary mt-10">
         🐵 Made for Monkey Game Lovers 🐵
       </footer>{" "}
     </div>

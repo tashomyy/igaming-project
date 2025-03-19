@@ -49,7 +49,7 @@ const Header = ({ logout, userData }: HeaderProps) => {
 
   return (
     <header
-      className="bg-gradient-to-r from-[#FF007F] via-[#6A0DAD] to-[#00FFFF] 
+      className="bg-gradient-to-r from-primary via-secondary to-highlight
                        text-white py-4 shadow-lg sticky top-0 z-50"
     >
       <div className="container flex items-center justify-between flex-wrap gap-x-8 gap-y-2 px-6">
@@ -59,8 +59,8 @@ const Header = ({ logout, userData }: HeaderProps) => {
             className={`px-4 py-2 rounded-lg font-bold transition text-lg tracking-wide
               ${
                 activeCategory === null
-                  ? "bg-[#FFD700] text-black shadow-lg"
-                  : "bg-[#FF007F] hover:bg-[#FF5733] shadow-md"
+                  ? "bg-accent text-black shadow-lg"
+                  : "bg-primary hover:bg-warning shadow-md"
               }`}
           >
             🎮 All Games
@@ -79,10 +79,10 @@ const Header = ({ logout, userData }: HeaderProps) => {
                     key={cat.id || cat.slug}
                     onClick={() => handleCategoryClick(cat.slug)}
                     className={`w-full block text-left px-4 py-2 font-semibold 
-                                transition duration-300 rounded-md text-[#FFD700]
-                                hover:bg-[#FF007F] hover:text-white ${
+                                transition duration-300 rounded-md text-accent
+                                hover:bg-primary hover:text-white ${
                                   activeCategory === cat.slug
-                                    ? "bg-[#39FF14] text-black"
+                                    ? "bg-success text-black"
                                     : ""
                                 }`}
                   >
@@ -95,13 +95,13 @@ const Header = ({ logout, userData }: HeaderProps) => {
         </nav>
 
         <div className="flex mx-auto lg:justify-end lg:mx-0 items-center">
-          <span className="mr-4 font-bold text-[#FFD700]">
+          <span className="mr-4 font-bold text-accent">
             {userData.username} 🐵
           </span>
           <button
             onClick={logout}
-            className="px-4 py-2 bg-[#FF0000] text-white font-bold rounded-lg shadow-lg 
-                       hover:bg-[#FF5733] transition-transform transform hover:scale-105"
+            className="px-4 py-2 bg-danger text-white font-bold rounded-lg shadow-lg 
+                       hover:bg-warning transition-transform transform hover:scale-105"
           >
             Logout 🚀
           </button>
