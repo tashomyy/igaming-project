@@ -7,7 +7,7 @@ interface GameGridProps {
 
 const GameGrid: React.FC<GameGridProps> = ({ games }) => {
   return (
-    <div className="container mx-auto px-4">
+    <div className="w-full">
       <div className="grid grid-cols-2 sm:grid-cols-3  gap-4">
         {games.map((game) => (
           <div
