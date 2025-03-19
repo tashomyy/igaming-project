@@ -88,7 +88,9 @@ const StepOneForm = ({ onNext, storedData }: StepOneFormProps) => {
 
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-500 text-white rounded-md"
+        className="px-5 py-2 bg-primary text-text-primary
+             rounded-lg shadow-lg font-bold tracking-wide font-caption 
+             hover:bg-warning hover:scale-105 transition-transform duration-300"
       >
         Next
       </button>
@@ -147,13 +149,18 @@ const StepTwoForm = ({ onBack, onSubmit, storedData }: StepTwoFormProps) => {
         <button
           type="button"
           onClick={handleBack}
-          className="px-4 py-2 bg-gray-400 text-white rounded-md"
+          className="px-5 py-2 bg-danger text-text-primary
+               rounded-lg shadow-md font-bold tracking-wide 
+               hover:bg-warning hover:scale-105 transition-transform duration-300"
         >
           Back
         </button>
+
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md"
+          className="px-5 py-2 bg-success text-text-primary
+               rounded-lg shadow-lg font-bold tracking-wide font-caption
+               hover:bg-highlight hover:scale-105 transition-transform duration-300"
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>

@@ -8,9 +8,7 @@ const Welcome = () => {
   const [formDisplay, setFormDisplay] = useState<AuthModes>(AuthModes.REGISTER);
 
   const isLogin = formDisplay === AuthModes.LOGIN;
-  const description = isLogin
-    ? "Do not have an account? Register now"
-    : "Already have an account? Sign in";
+  const description = isLogin ? "Go to Register 🚀" : "Go to Login 🔥";
 
   const toggleMode = () =>
     setFormDisplay((prevMode) =>
@@ -18,9 +16,26 @@ const Welcome = () => {
     );
 
   return (
-    <div className="tw-px  min-h-screen flex flex-col items-center justify-center">
-      {isLogin ? <LoginForm /> : <RegisterForm />}
-      <SwitchMode description={description} changeMode={toggleMode} />
+    <div
+      className="min-h-screen flex flex-col items-center justify-center 
+                    bg-bg-main text-text-primary"
+    >
+      <div
+        className="bg-bg-card p-8 rounded-lg shadow-xl 
+                      border-4 border-primary hover:border-highlight 
+                      transition-all duration-300 container text-center"
+      >
+        <h1
+          className="text-4xl font-bold text-[var(--color-accent)] 
+                       font-heading tracking-wider"
+        >
+          {isLogin ? "Welcome Back! 🐵" : "Join Us! 🎮"}
+        </h1>
+
+        <div className="mt-6">{isLogin ? <LoginForm /> : <RegisterForm />}</div>
+
+        <SwitchMode description={description} changeMode={toggleMode} />
+      </div>
     </div>
   );
 };

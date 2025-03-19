@@ -28,9 +28,15 @@ const FormField = ({
   register,
   error,
 }: FormFieldProps) => {
-  const inputClass = `sm:min-w-[400px] w-full bg-transparent placeholder:text-[#333] dark:placeholder:text-white text-primary-text text-xs sm:text-sm border rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-blue-500 hover:border-blue-300 shadow-sm focus:shadow pr-8 ${
-    error ? "border-red-500" : "border-border-color"
-  }`;
+  const inputClass = `
+    sm:min-w-[400px] w-full bg-secondary 
+    placeholder:text-text-muted text-text-primary
+    text-xs sm:text-sm border border-success
+    rounded-md px-3 py-2 transition-all duration-300 ease-in-out 
+    focus:outline-none focus:border-accent 
+    hover:border-highlight shadow-md focus:shadow-lg
+    pr-8 ${error ? "border-2 !border-danger" : ""}
+  `;
 
   const renderInput = () => {
     switch (type) {
@@ -39,6 +45,9 @@ const FormField = ({
       case InputType.Date:
         return (
           <div className="relative w-full group">
+            <label htmlFor="name" className="text-primary">
+              {label}
+            </label>
             <input
               type={inputToValue[type]}
               placeholder={placeholder}
@@ -52,6 +61,9 @@ const FormField = ({
       case InputType.Dropdown:
         return (
           <div className="relative w-full group">
+            <label htmlFor="name" className="text-primary">
+              {label}
+            </label>
             <select
               {...register(name)}
               className={`${inputClass} appearance-none cursor-pointer`}
@@ -68,7 +80,10 @@ const FormField = ({
 
             {onReset && <ResetButton onReset={onReset} />}
 
-            <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 transition-opacity pointer-events-none">
+            <span
+              className="absolute right-2 top-9 
+                            text-text-muted transition-opacity pointer-events-none"
+            >
               <ChevronDownIcon className="stroke-current w-4 h-4" />
             </span>
           </div>
@@ -83,9 +98,12 @@ const FormField = ({
     <div
       className={`flex flex-col gap-2 w-full max-w-md relative ${className}`}
     >
-      <label className="text-primary-text font-medium">{label}</label>
       {renderInput()}
-      {error !== undefined && <p className="text-sm text-red-500 ">{error}</p>}
+      {error !== undefined && (
+        <p className="text-sm text-[var(--color-danger)] font-semibold">
+          {error}
+        </p>
+      )}
     </div>
   );
 };
