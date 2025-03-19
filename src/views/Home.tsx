@@ -1,65 +1,77 @@
-import { useEffect, useRef, useState } from "react";
-
-import GameGrid from "../components/Homepage/GameGrid";
+import { ErrorBoundary } from "react-error-boundary";
+import { Suspense, useState, useEffect } from "react";
 import useInfiniteGames from "../hooks/useInfiniteGames";
 
 const Homepage = () => {
-  const [filters, setFilters] = useState({
-    category: "",
-    subCategory: "",
-    extraCategory: "",
-    type: "",
-    searchQuery: "",
-    provider: "",
+  const [category, setCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const { games, loadMore, hasMore, loading } = useInfiniteGames({
+    category,
+    searchQuery,
   });
 
-  const { games, loading, loadMore } = useInfiniteGames(filters);
-  const observerRef = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !loading) {
-          loadMore();
-        }
-      },
-      { threshold: 1 }
-    );
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 100
+      ) {
+        loadMore();
+      }
+    };
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [loading]);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loadMore]);
 
   return (
-    <div className="container mx-auto">
-      <h1 className="text-center my-5">Welcome to the iGaming App</h1>
+    <>
+      <h1 className="my-5 mx-2 text-center pt-12 primary-heading">
+        Welcome to the iGaming project app
+      </h1>
+      <p className="text-center primary-body">
+        Testing fetch data and error handling
+      </p>
 
       <input
         type="text"
-        placeholder="Search by name..."
-        className="border p-2 rounded w-full mb-4"
-        onChange={(e) =>
-          setFilters((prev) => ({ ...prev, searchQuery: e.target.value }))
-        }
-      />
-      <input
-        type="text"
-        placeholder="Search by provider..."
-        className="border p-2 rounded w-full mb-4"
-        onChange={(e) =>
-          setFilters((prev) => ({ ...prev, provider: e.target.value }))
-        }
+        placeholder="Search games..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="border p-2 my-4 w-full"
       />
 
-      <GameGrid games={games} />
+      <ErrorBoundary
+        fallback={<div>Something went wrong with loading games</div>}
+      >
+        <Suspense fallback={<div>Loading games...</div>}>
+          <div className="grid grid-cols-3 gap-4">
+            {games.map((game) => (
+              <div
+                key={game.id}
+                className="relative group overflow-hidden rounded-lg shadow-lg"
+              >
+                <img
+                  src={game.desktopThumbnail.url}
+                  alt={game.name}
+                  className="w-full h-80 object-cover transition-transform duration-300 transform group-hover:scale-110"
+                />
 
-      <div ref={observerRef} className="h-10"></div>
-
-      {loading && <p className="text-center mt-4">Loading more games...</p>}
-    </div>
+                <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <h3 className="text-white font-semibold text-lg">
+                    {game.name}
+                  </h3>
+                  <p className="text-gray-300 text-sm">{game.provider}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          {loading && <p>Loading more games...</p>}
+          {!hasMore && <p>No more games to load</p>}
+        </Suspense>
+      </ErrorBoundary>
+    </>
   );
 };
 

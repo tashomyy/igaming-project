@@ -31,7 +31,6 @@ const Layout = () => {
         logout={logout}
         onCategorySelect={onCategorySelect}
       />
-      <nav>Navigation Bar</nav>
       <main className="h-full">
         <Outlet />
       </main>

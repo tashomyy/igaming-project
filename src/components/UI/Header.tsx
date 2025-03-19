@@ -41,7 +41,7 @@ const Header = ({ logout, userData, onCategorySelect }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-gray-900 text-white p-4 shadow-lg flex items-center justify-between">
+    <header className="bg-gray-900 text-white p-4 shadow-lg flex items-center justify-between sticky top-0 z-50">
       <nav className="flex items-center justify-center gap-x-4">
         <button
           onClick={() => handleCategoryClick(null)}
