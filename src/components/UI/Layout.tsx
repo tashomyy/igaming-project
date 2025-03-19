@@ -19,9 +19,18 @@ const Layout = () => {
     setUserData(null);
     navigate("/login");
   };
+
+  const onCategorySelect = (categorySlug: string | null) => {
+    console.log(categorySlug);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
-      <Header userData={userData} logout={logout} />
+      <Header
+        userData={userData}
+        logout={logout}
+        onCategorySelect={onCategorySelect}
+      />
       <nav>Navigation Bar</nav>
       <main className="h-full">
         <Outlet />

@@ -1,10 +1,17 @@
 import { ErrorBoundary } from "react-error-boundary";
-import { fetchCategories } from "../services/categories";
-import { Suspense } from "react";
-import CategoriesComponent from "../components/Categories";
+import { Suspense, useEffect, useState } from "react";
+import { Game } from "../lib/types";
+import { fetchGames } from "../services/games";
 
 const Homepage = () => {
-  const categoriesPromise = fetchCategories();
+  const [games, setGames] = useState<Game[]>([]);
+  useEffect(() => {
+    const fetchGamesData = async () => {
+      const res = await fetchGames();
+      console.log(res);
+    };
+    fetchGamesData();
+  }, []);
 
   const centerClassNameTemp =
     "flex items-center justify-center mx-auto text-center my-5";
@@ -24,17 +31,13 @@ const Homepage = () => {
       <ErrorBoundary
         fallback={
           <div className={centerClassNameTemp}>
-            Something went wrong with loading categories
+            Something went wrong with loading games
           </div>
         }
       >
         <Suspense
-          fallback={
-            <div className={centerClassNameTemp}>Loading categories...</div>
-          }
-        >
-          <CategoriesComponent categoriesPromise={categoriesPromise} />
-        </Suspense>
+          fallback={<div className={centerClassNameTemp}>Loading games...</div>}
+        ></Suspense>
       </ErrorBoundary>
     </>
   );
