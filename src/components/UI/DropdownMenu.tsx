@@ -27,13 +27,24 @@ const DropdownMenu = ({ label, children }: DropdownMenuProps) => {
     <div className="relative w-max" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg flex justify-between items-center"
+        className="w-full px-4 py-2 bg-[#FF007F] hover:bg-[#FF5733] rounded-lg 
+                   flex justify-between items-center text-white font-bold
+                   border-2 border-transparent hover:border-[#FFD700] 
+                   transition-all duration-300 transform hover:scale-105"
       >
-        {label} <ChevronDownIcon className="w-5 h-5" />
+        {label}
+        <ChevronDownIcon
+          className={`w-5 h-5 ml-2 transition-transform duration-300 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 w-max bg-gray-800 shadow-lg rounded-lg mt-2 z-10">
+        <div
+          className="absolute left-0 w-max bg-[#6A0DAD] shadow-2xl 
+                        rounded-lg mt-2 z-20 p-3 border-2 border-[#FFD700]"
+        >
           {children}
         </div>
       )}

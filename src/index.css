@@ -37,60 +37,29 @@
 }
 
 @theme {
-  /* colors */
-  --color-primary: var(--color-primary);
-  --color-secondary: var(--color-secondary);
-  --color-text-primary: var(--color-textPrimary);
-  --color-text-muted: var(--color-textMute);
-  --color-accent: var(--color-accent);
-  --color-card: var(--color-cardBg);
-  --color-border-color: var(--color-border);
-  --color-hover-color: var(--color-hover);
-  --color-danger: var(--color-danger);
-  --color-success: var(--color-success);
-  /*  font families */
-  --font-heading: var(--font-family-headline);
-  --font-body: var(--font-family-body);
-  --font-caption: var(--font-family-caption);
+  /* 🎨 Colors */
+  --color-primary: #ff007f; /* Neon Pink */
+  --color-secondary: #6a0dad; /* Deep Purple */
+  --color-text-primary: #ffd700; /* Crazy Yellow */
+  --color-text-muted: #ff5733; /* Funky Orange */
+  --color-accent: #39ff14; /* Neon Green */
+  --color-card: #00ffff; /* Neon Blue */
+  --color-border-color: #ffd700; /* Crazy Yellow */
+  --color-hover-color: #ff5733; /* Funky Orange */
+  --color-danger: #ff0000; /* Bright Red */
+  --color-success: #00ff00; /* Bright Green */
+
+  /* 🖋️ Font Families */
+  --font-heading: "Comic Sans MS", cursive, sans-serif; /* Fun Headline Font */
+  --font-body: "Poppins", sans-serif; /* Clean & Modern */
+  --font-caption: "Press Start 2P", cursive; /* Retro Gaming Vibes */
 }
 
 body {
   @apply text-text-primary font-body !bg-cover;
   background: url("/light-bg.svg") center center no-repeat;
 }
-.dark body {
-  background: url("/dark-bg.svg") center center no-repeat;
-}
 
 .container {
   @apply w-full max-w-7xl mx-auto px-4 md:px-8;
-}
-
-/* for main page headings */
-.primary-heading {
-  @apply text-text-primary text-3xl md:text-4xl lg:text-5xl font-heading font-bold;
-}
-
-/* for section headings */
-.secondary-heading {
-  @apply text-text-primary text-xl md:text-2xl lg:text-3xl font-heading;
-}
-
-/* for buttons, card titles etc */
-.element-heading {
-  @apply text-text-primary text-base md:text-lg lg:text-xl font-heading;
-}
-
-/* for main text */
-.primary-body {
-  @apply text-text-primary text-sm md:text-base lg:text-lg font-body;
-}
-
-/* for captions */
-.secondary-body {
-  @apply text-text-primary text-xs md:text-sm lg:text-base font-caption;
-}
-
-.tw-px {
-  @apply px-4 md:px-6 lg:px-8;
 }

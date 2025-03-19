@@ -26,7 +26,9 @@ const Layout = () => {
       <main className="h-full">
         <Outlet />
       </main>
-      <footer className="mt-auto">My App Footer</footer>
+      <footer className="text-center py-6 text-lg text-[#FFD700] bg-[#FF007F] mt-10">
+        🐵 Made for Monkey Game Lovers 🐵
+      </footer>{" "}
     </div>
   );
 };

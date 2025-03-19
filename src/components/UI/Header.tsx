@@ -48,18 +48,22 @@ const Header = ({ logout, userData }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-gray-900 text-white py-4 shadow-lg  sticky top-0 z-50 ">
-      <div className="container flex items-center justify-between flex-wrap gap-x-8 gap-y-2">
+    <header
+      className="bg-gradient-to-r from-[#FF007F] via-[#6A0DAD] to-[#00FFFF] 
+                       text-white py-4 shadow-lg sticky top-0 z-50"
+    >
+      <div className="container flex items-center justify-between flex-wrap gap-x-8 gap-y-2 px-6">
         <nav className="flex items-center justify-center gap-x-4 gap-y-2 flex-wrap">
           <button
             onClick={() => handleCategoryClick(null)}
-            className={`px-4 py-2 rounded-lg transition ${
-              activeCategory === null
-                ? "bg-blue-600"
-                : "bg-gray-800 hover:bg-gray-700"
-            }`}
+            className={`px-4 py-2 rounded-lg font-bold transition text-lg tracking-wide
+              ${
+                activeCategory === null
+                  ? "bg-[#FFD700] text-black shadow-lg"
+                  : "bg-[#FF007F] hover:bg-[#FF5733] shadow-md"
+              }`}
           >
-            All Games
+            🎮 All Games
           </button>
 
           {Object.entries(categories).map(([type, categoryList]) => (
@@ -74,9 +78,13 @@ const Header = ({ logout, userData }: HeaderProps) => {
                   <button
                     key={cat.id || cat.slug}
                     onClick={() => handleCategoryClick(cat.slug)}
-                    className={`w-full block text-left px-4 py-2 hover:bg-gray-700 transition ${
-                      activeCategory === cat.slug ? "bg-blue-600" : ""
-                    }`}
+                    className={`w-full block text-left px-4 py-2 font-semibold 
+                                transition duration-300 rounded-md text-[#FFD700]
+                                hover:bg-[#FF007F] hover:text-white ${
+                                  activeCategory === cat.slug
+                                    ? "bg-[#39FF14] text-black"
+                                    : ""
+                                }`}
                   >
                     {title}
                   </button>
@@ -87,12 +95,15 @@ const Header = ({ logout, userData }: HeaderProps) => {
         </nav>
 
         <div className="flex mx-auto lg:justify-end lg:mx-0 items-center">
-          <span className="mr-4">{userData.username}</span>
+          <span className="mr-4 font-bold text-[#FFD700]">
+            {userData.username} 🐵
+          </span>
           <button
             onClick={logout}
-            className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-500 transition"
+            className="px-4 py-2 bg-[#FF0000] text-white font-bold rounded-lg shadow-lg 
+                       hover:bg-[#FF5733] transition-transform transform hover:scale-105"
           >
-            Logout
+            Logout 🚀
           </button>
         </div>
       </div>
