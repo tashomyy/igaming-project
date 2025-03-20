@@ -77,32 +77,41 @@ const Header = ({ logout, userData }: HeaderProps) => {
             🎮 All Games
           </button>
 
-          {Object.entries(categories).map(([type, categoryList]) => (
-            <DropdownMenu key={type} label={type.replace(/([A-Z])/g, " $1")}>
-              {categoryList.map((cat) => {
-                const title =
-                  cat.multilingual?.find((lang) => lang.language === "en")
-                    ?.title ||
-                  cat.title ||
-                  cat.slug;
-                return (
-                  <button
-                    key={cat.id || cat.slug}
-                    onClick={() => handleCategoryClick(cat.slug)}
-                    className={`w-full block text-left px-4 py-2 font-semibold 
+          {Object.entries(categories).map(([type, categoryList]) => {
+            const isActive = categoryList.some(
+              (cat) => cat.slug === activeCategory
+            );
+            return (
+              <DropdownMenu
+                key={type}
+                label={type.replace(/([A-Z])/g, " $1")}
+                isActive={isActive}
+              >
+                {categoryList.map((cat) => {
+                  const title =
+                    cat.multilingual?.find((lang) => lang.language === "en")
+                      ?.title ||
+                    cat.title ||
+                    cat.slug;
+                  return (
+                    <button
+                      key={cat.id || cat.slug}
+                      onClick={() => handleCategoryClick(cat.slug)}
+                      className={`w-full block text-left px-4 py-2 font-semibold 
                                 transition duration-300 rounded-md text-accent
                                 hover:bg-primary hover:text-white ${
                                   activeCategory === cat.slug
                                     ? "bg-success text-black"
                                     : ""
                                 }`}
-                  >
-                    {title}
-                  </button>
-                );
-              })}
-            </DropdownMenu>
-          ))}
+                    >
+                      {title}
+                    </button>
+                  );
+                })}
+              </DropdownMenu>
+            );
+          })}
         </nav>
 
         <div className="flex mx-auto lg:justify-end lg:mx-0 items-center">

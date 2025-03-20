@@ -4,9 +4,10 @@ import { useState, useEffect, useRef, ReactNode } from "react";
 interface DropdownMenuProps {
   label: string;
   children: ReactNode;
+  isActive: boolean;
 }
 
-const DropdownMenu = ({ label, children }: DropdownMenuProps) => {
+const DropdownMenu = ({ label, children, isActive }: DropdownMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -27,10 +28,15 @@ const DropdownMenu = ({ label, children }: DropdownMenuProps) => {
     <div className="relative w-max" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full px-4 py-2 bg-primary hover:bg-warning rounded-lg 
-                   flex justify-between items-center text-white font-bold
-                   border-2 border-transparent hover:border-accent 
-                   transition-all duration-300 transform hover:scale-105"
+        className={`w-full px-4 py-2 rounded-lg flex justify-between items-center 
+          font-bold border-2 border-transparent 
+          transition-all duration-300 transform hover:scale-105
+          ${
+            isActive
+              ? "bg-accent text-black shadow-lg"
+              : "bg-primary hover:bg-warning shadow-md"
+          }
+          hover:border-accent`}
       >
         {label}
         <ChevronDownIcon
