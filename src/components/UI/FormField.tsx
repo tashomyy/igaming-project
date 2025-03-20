@@ -3,6 +3,7 @@ import ResetButton from "./ResetButton";
 import { InputType } from "../../lib/enums";
 import { inputToValue } from "../../lib/helpers";
 import { UseFormRegister } from "react-hook-form";
+import ErrorMessage from "./ErrorMessage";
 
 interface FormFieldProps {
   code: string;
@@ -99,11 +100,7 @@ const FormField = ({
       className={`flex flex-col gap-2 w-full max-w-md relative ${className}`}
     >
       {renderInput()}
-      {error !== undefined && (
-        <p className="text-sm text-[var(--color-danger)] font-semibold">
-          {error}
-        </p>
-      )}
+      {error !== undefined && <ErrorMessage message={error} />}
     </div>
   );
 };

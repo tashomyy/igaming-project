@@ -29,8 +29,8 @@ const Homepage = () => {
 
   return (
     <div className="bg-gradient-to-r from-primary via-secondary to-highlight min-h-screen text-white">
-      <div className="text-center pt-12">
-        <h1 className="text-5xl font-bold text-accent animate-[wiggle_1s_ease-in-out_infinite]">
+      <div className="text-center pt-12 container">
+        <h1 className="text-3xl md:text-5xl font-bold text-accent animate-[wiggle_1s_ease-in-out_infinite]">
           🐵 Welcome to the Monkey Gaming Zone! 🎮
         </h1>
         <p className="mt-3 text-lg text-warning">
@@ -38,7 +38,7 @@ const Homepage = () => {
         </p>
       </div>
 
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-5 container">
         <input
           type="text"
           placeholder="Search wild games..."

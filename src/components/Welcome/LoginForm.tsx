@@ -4,9 +4,13 @@ import { InputType } from "../../lib/enums";
 import { LoginFormData, loginSchema } from "./validation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import ErrorMessage from "../UI/ErrorMessage";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const {
     register,
@@ -18,6 +22,8 @@ const LoginForm = () => {
   });
 
   const handleLogin = (data: LoginFormData) => {
+    setLoginError(null);
+
     const users = JSON.parse(localStorage.getItem("users") || "[]");
 
     const foundUser = users.find(
@@ -29,7 +35,9 @@ const LoginForm = () => {
       localStorage.setItem("user", JSON.stringify(foundUser));
       navigate("/");
     } else {
-      alert("Invalid email or password. Please try again.");
+      setLoginError("Incorrect email or password.");
+
+      toast.error("Invalid email or password. Please try again.");
     }
   };
 
@@ -53,6 +61,8 @@ const LoginForm = () => {
           error={errors.password?.message}
           register={register}
         />
+
+        {loginError && <ErrorMessage message={loginError} />}
 
         <button
           type="submit"
