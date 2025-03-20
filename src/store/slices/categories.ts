@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CategoriesState {
   activeCategory: string | null;
+  availableCategories: string[];
 }
 
 const initialState: CategoriesState = {
   activeCategory: null,
+  availableCategories: [],
 };
 
 const categoriesSlice = createSlice({
@@ -18,8 +20,12 @@ const categoriesSlice = createSlice({
     resetCategory: (state) => {
       state.activeCategory = null;
     },
+    setAvailableCategories: (state, action: PayloadAction<string[]>) => {
+      state.availableCategories = action.payload;
+    },
   },
 });
 
-export const { setCategory, resetCategory } = categoriesSlice.actions;
+export const { setCategory, resetCategory, setAvailableCategories } =
+  categoriesSlice.actions;
 export default categoriesSlice.reducer;

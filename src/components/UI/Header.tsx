@@ -19,6 +19,10 @@ const Header = ({ logout, userData }: HeaderProps) => {
     (state: RootState) => state.categories.activeCategory
   );
 
+  const availableCategories = useSelector(
+    (state: RootState) => state.categories.availableCategories
+  );
+
   const [categories, setCategories] = useState<Record<string, Category[]>>({});
 
   useEffect(() => {
@@ -33,11 +37,21 @@ const Header = ({ logout, userData }: HeaderProps) => {
         },
         {}
       );
+
+      Object.keys(groupedCategories).forEach((type) => {
+        groupedCategories[type] = groupedCategories[type].filter((cat) =>
+          availableCategories.includes(cat.slug)
+        );
+        if (groupedCategories[type].length === 0) {
+          delete groupedCategories[type];
+        }
+      });
+
       setCategories(groupedCategories);
     };
 
     fetchCategoriesData();
-  }, []);
+  }, [availableCategories]);
 
   const handleCategoryClick = (slug: string | null) => {
     if (slug === null) {
@@ -48,10 +62,7 @@ const Header = ({ logout, userData }: HeaderProps) => {
   };
 
   return (
-    <header
-      className="bg-gradient-to-r from-primary via-secondary to-highlight
-                       text-white py-4 shadow-lg sticky top-0 z-50"
-    >
+    <header className="bg-gradient-to-r from-primary via-secondary to-highlight text-white py-4 shadow-lg sticky top-0 z-50">
       <div className="container flex items-center justify-between flex-wrap gap-x-8 gap-y-2 px-6">
         <nav className="flex items-center justify-center gap-x-4 gap-y-2 flex-wrap">
           <button

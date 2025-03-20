@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setGames, filterGames, loadMoreGames } from "../store/slices/games";
 import { RootState } from "../store/store";
 import { fetchGames } from "../services/games";
+import { setAvailableCategories } from "../store/slices/categories";
+import { Game } from "../lib/types";
 
 interface UseInfiniteGamesProps {
   searchQuery?: string;
@@ -10,7 +12,7 @@ interface UseInfiniteGamesProps {
 
 const useInfiniteGames = ({ searchQuery }: UseInfiniteGamesProps) => {
   const dispatch = useDispatch();
-  const { loadedGames, hasMore } = useSelector(
+  const { loadedGames, hasMore, allGames } = useSelector(
     (state: RootState) => state.games
   );
   const activeCategory = useSelector(
@@ -24,6 +26,20 @@ const useInfiniteGames = ({ searchQuery }: UseInfiniteGamesProps) => {
       setLoading(true);
       const games = await fetchGames();
       dispatch(setGames(games));
+
+      const activeCategories = new Set<string>();
+      games.forEach((game: Game) => {
+        if (game.type) activeCategories.add(game.type);
+        if (game.category) activeCategories.add(game.category);
+        if (game.subCategory) activeCategories.add(game.subCategory);
+        if (game.extraCategories) {
+          game.extraCategories
+            .split(",")
+            .forEach((extra) => activeCategories.add(extra.trim()));
+        }
+      });
+
+      dispatch(setAvailableCategories(Array.from(activeCategories)));
       setLoading(false);
     };
 
