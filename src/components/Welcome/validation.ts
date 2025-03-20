@@ -75,5 +75,11 @@ export const stepTwoSchema = z.object({
     .max(20, { message: "Phone number is too long" }),
 });
 
+export const loginSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
 export type StepOneFormData = z.infer<typeof stepOneSchema>;
 export type StepTwoFormData = z.infer<typeof stepTwoSchema>;
+export type LoginFormData = z.infer<typeof loginSchema>;

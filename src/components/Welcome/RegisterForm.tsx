@@ -13,6 +13,7 @@ import {
 import { FORM_STEPS } from "../../lib/constants";
 import { FormData } from "../../lib/types";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RegistrationForm = () => {
   const [step, setStep] = useState(1);
@@ -27,7 +28,22 @@ const RegistrationForm = () => {
   const handleSubmit = (data: Partial<FormData>) => {
     const finalData = { ...formData, ...data };
 
+    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+
+    const isUserExists = existingUsers.some(
+      (user: FormData) => user.email === finalData.email
+    );
+
+    if (isUserExists) {
+      toast.error("Email is already registered! Please use another email.");
+      return;
+    }
+
+    existingUsers.push(finalData);
+    localStorage.setItem("users", JSON.stringify(existingUsers));
+
     localStorage.setItem("user", JSON.stringify(finalData));
+
     navigate("/");
   };
 
