@@ -14,12 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set API URL
-        env:
-          VITE_API_URL: ${{ secrets.API_URL }}
-        run: |
-          echo "VITE_API_URL=${VITE_API_URL}" >> .env
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
