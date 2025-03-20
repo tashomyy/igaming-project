@@ -12,7 +12,7 @@ interface UseInfiniteGamesProps {
 
 const useInfiniteGames = ({ searchQuery }: UseInfiniteGamesProps) => {
   const dispatch = useDispatch();
-  const { loadedGames, hasMore, allGames } = useSelector(
+  const { loadedGames, hasMore } = useSelector(
     (state: RootState) => state.games
   );
   const activeCategory = useSelector(
