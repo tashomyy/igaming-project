@@ -3,6 +3,7 @@ import { Suspense, useState, useEffect } from "react";
 import useInfiniteGames from "../hooks/useInfiniteGames";
 import useDebounce from "../hooks/useDebounce";
 import GameGrid from "../components/Homepage/GameGrid";
+import Loader from "../components/UI/Loader";
 
 const Homepage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -53,17 +54,9 @@ const Homepage = () => {
           <div className="text-center text-red-500">Something went wrong</div>
         }
       >
-        <Suspense
-          fallback={
-            <div className="text-center text-accent">Loading games...</div>
-          }
-        >
+        <Suspense fallback={<Loader />}>
           <GameGrid games={games} />
-          {loading && (
-            <p className="text-center text-accent animate-pulse">
-              Loading more games...
-            </p>
-          )}
+          {loading && <Loader />}
           {!hasMore && (
             <p className="text-center text-warning font-semibold mt-5">
               No more games found 🐵🎮

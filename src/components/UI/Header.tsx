@@ -5,6 +5,7 @@ import { fetchCategories } from "../../services/categories";
 import { setCategory, resetCategory } from "../../store/slices/categories";
 import { RootState } from "../../store/store";
 import DropdownMenu from "./DropdownMenu";
+import { useErrorBoundary } from "react-error-boundary";
 
 interface HeaderProps {
   logout: () => void;
@@ -25,33 +26,39 @@ const Header = ({ logout, userData }: HeaderProps) => {
 
   const [categories, setCategories] = useState<Record<string, Category[]>>({});
 
+  const { showBoundary } = useErrorBoundary();
   useEffect(() => {
     const fetchCategoriesData = async () => {
-      const res = await fetchCategories();
-      const groupedCategories: Record<string, Category[]> = res.reduce(
-        (acc: Record<string, Category[]>, category: Category) => {
-          const type = category.type || "other";
-          if (!acc[type]) acc[type] = [];
-          acc[type].push(category);
-          return acc;
-        },
-        {}
-      );
+      try {
+        const res = await fetchCategories();
 
-      Object.keys(groupedCategories).forEach((type) => {
-        groupedCategories[type] = groupedCategories[type].filter((cat) =>
-          availableCategories.includes(cat.slug)
+        const groupedCategories: Record<string, Category[]> = res.reduce(
+          (acc: Record<string, Category[]>, category: Category) => {
+            const type = category.type || "other";
+            if (!acc[type]) acc[type] = [];
+            acc[type].push(category);
+            return acc;
+          },
+          {}
         );
-        if (groupedCategories[type].length === 0) {
-          delete groupedCategories[type];
-        }
-      });
 
-      setCategories(groupedCategories);
+        Object.keys(groupedCategories).forEach((type) => {
+          groupedCategories[type] = groupedCategories[type].filter((cat) =>
+            availableCategories.includes(cat.slug)
+          );
+          if (groupedCategories[type].length === 0) {
+            delete groupedCategories[type];
+          }
+        });
+
+        setCategories(groupedCategories);
+      } catch (error) {
+        showBoundary(error);
+      }
     };
 
     fetchCategoriesData();
-  }, [availableCategories]);
+  }, [availableCategories, showBoundary]);
 
   const handleCategoryClick = (slug: string | null) => {
     if (slug === null) {
