@@ -18,13 +18,14 @@ const GameGrid: React.FC<GameGridProps> = ({ games }) => {
             <img
               src={game.desktopThumbnail.url}
               alt={game.name}
+              loading="lazy"
               className="w-full h-80 object-cover transition-transform duration-500 transform 
                          group-hover:scale-110 group-hover:rotate-1"
             />
 
             <div
               className="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center 
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        opacity-0 group-hover:opacity-100 active:opacity-100 sm:transition-opacity sm:duration-500"
             >
               <h3 className="text-accent font-bold text-xl tracking-wide drop-shadow-lg px-4 text-center">
                 {game.name}
@@ -33,10 +34,7 @@ const GameGrid: React.FC<GameGridProps> = ({ games }) => {
                 {game.provider}
               </p>
 
-              <div
-                className="absolute inset-0 border-4 border-success 
-                              opacity-0 group-hover:opacity-100 animate-pulse"
-              ></div>
+              <div className="absolute inset-0 border-4 border-success opacity-0 group-hover:opacity-100 active:opacity-100 animate-pulse"></div>
             </div>
           </div>
         ))}

@@ -3,7 +3,9 @@ import { apiClient } from "./apiClient";
 
 export const fetchCategories = async () => {
   try {
-    const response = await apiClient.get(`game-categories/extended.json`);
+    const response = await apiClient.get(
+      `https://cdn-cms.igp.cloud/bto/static/files/game-categories/extended.json`
+    );
     return response.data;
   } catch (error: any) {
     toast.error(
