@@ -84,7 +84,9 @@ const Header = ({ logout, userData }: HeaderProps) => {
             return (
               <DropdownMenu
                 key={type}
-                label={type.replace(/([A-Z])/g, " $1")}
+                label={type
+                  .replace(/([A-Z])/g, " $1")
+                  .replace(/\b\w/g, (char) => char.toUpperCase())}
                 isActive={isActive}
               >
                 {categoryList.map((cat) => {
